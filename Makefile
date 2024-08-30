@@ -6,7 +6,7 @@
 #    By: eviala <eviala@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 11:41:47 by eviala            #+#    #+#              #
-#    Updated: 2024/08/30 10:27:55 by eviala           ###   ########.fr        #
+#    Updated: 2024/08/30 11:15:17 by eviala           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ RM = rm -rf
 
 # Rechercher tous les fichiers .c dans le répertoire courant
 SRCS = main.c \
-	parsing/test.c \
+	parsing/test1.c
+
 
 MAKEFLAGS += --no-print-directory
 TOTAL_FILES := $(words $(SRCS))
