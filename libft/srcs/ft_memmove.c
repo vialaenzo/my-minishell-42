@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:00:26 by eviala            #+#    #+#             */
-/*   Updated: 2024/05/21 16:59:19 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/12 13:47:15 by dtrala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	char		*d_tmp;
 	size_t		i;
 
-	if (!dst && !src)
+	if (!dst || !src)
 		return ((void *)0);
 	s_tmp = (const char *)src;
 	d_tmp = (char *)dst;

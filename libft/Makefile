@@ -26,7 +26,7 @@ SRCS		= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_putnbr.c ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 	ft_lstadd_back.c ft_lstdelone.c ft_free_lst.c ft_lstiter.c \
 	ft_lstmap.c ft_strjoin_free.c ft_isplusminus.c ft_strlon.c \
-	get_next_line.c get_next_line_utils.c ft_strcpy.c ft_count_occ.c \
+	get_next_line.c ft_strcpy.c ft_count_occ.c \
 	ft_putchar_fd_printf.c ft_printf.c ft_puthex_fd_printf.c ft_putnbr_fd_printf.c \
 	ft_putptr_fd_printf.c ft_putstr_fd_printf.c ft_putunbr_fd_printf.c ft_free.c
 

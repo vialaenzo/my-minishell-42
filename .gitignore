@@ -1,4 +1,7 @@
-*.o
 *.a
-minishell
+*.o
 *.sh
+.vscode/
+Session.vim
+minishell
+.heredoc.tmp

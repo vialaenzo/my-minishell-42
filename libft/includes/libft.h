@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:51:45 by eviala            #+#    #+#             */
-/*   Updated: 2024/08/03 12:19:34 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/12 11:17:10 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char				*ft_itoa(int n);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strdup(const char *src);
-char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin(const char *s1, const char *s2);
 char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
@@ -91,9 +91,9 @@ void				ft_putnbr(int nb);
  |____/ \___/|_| |_|\__,_|___/
 */
 
-void				ft_lstadd_back(t_list **alst, t_list *new);
-void				ft_lstadd_front(t_list **alst, t_list *new);
-void				ft_free_lst(t_list **lst, void (*del)(void*));
+void				ft_lstadd_back(t_list **alst, t_list *lst_new);
+void				ft_lstadd_front(t_list **alst, t_list *lst_new);
+void				ft_free_lst(t_list **lst, void (*del)(void *));
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 void				ft_lstdisplay(t_list *liste);
@@ -113,14 +113,12 @@ int					ft_lstsize(t_list *lst);
 						*/
 
 char				*get_next_line(int fd);
-char				*ft_strjoin_free(char *stash_c, char *buffer);
-
 /*  _____      _       _    __
- |  __ \    (_)     | |  / _|
- | |__) | __ _ _ __ | |_| |_
- |  ___/ '__| | '_ \| __|  _|
- | |   | |  | | | | | |_| |
- |_|   |_|  |_|_| |_|\__|_|
+	|  __ \    (_)     | |  / _|
+	| |__) | __ _ _ __ | |_| |_
+	|  ___/ '__| | '_ \| __|  _|
+	| |   | |  | | | | | |_| |
+	|_|   |_|  |_|_| |_|\__|_|
 */
 
 int					ft_putchar_fd_printf(char c, int fd);

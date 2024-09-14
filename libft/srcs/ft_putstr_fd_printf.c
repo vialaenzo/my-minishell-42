@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:11:44 by eviala            #+#    #+#             */
-/*   Updated: 2024/07/24 11:31:25 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:06:42 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_putstr_fd_printf(char *str, int fd)
 		return (count);
 	}
 	count = 0;
-	while (str[count])
-		count += ft_putchar_fd_printf(str[count], fd);
+	size_t (len) = ft_strlen(str);
+	write(fd, str, len);
 	return (count);
 }

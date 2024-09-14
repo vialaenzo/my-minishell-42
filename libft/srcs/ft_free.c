@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 12:13:44 by eviala            #+#    #+#             */
-/*   Updated: 2024/08/03 12:15:10 by eviala           ###   ########.fr       */
+/*   Updated: 2024/08/31 10:53:53 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ void	ft_free_tab(char **tab)
 	size_t	i;
 
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 	{
 		free(tab[i]);
 		i++;
 	}
-	free(tab);
+	if (tab)
+		free(tab);
+	tab = NULL;
 }
