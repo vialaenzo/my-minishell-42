@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:08 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:26:09 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 09:58:28 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	wait_all(t_data *data)
 	while (len--)
 	{
 		pid = waitpid(0, &status, 0);
-		if (pid == g_pid)
+		if (pid == g_signal_pid)
 		{
 			if (WIFEXITED(status))
 				data->exit_code = WEXITSTATUS(status);

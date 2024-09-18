@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:47 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:25:48 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 10:43:29 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 	else if (!ft_strncmp("unset", cmd->cmd_param[0], 6))
 		data->exit_code = ft_unset(data, cmd->cmd_param);
 	else if (!ft_strncmp("env", cmd->cmd_param[0], 4))
-		data->exit_code = ft_env(&data->env);
+		data->exit_code = ft_env(&data->env, NULL);
 	else if (!ft_strncmp("exit", cmd->cmd_param[0], 5))
 	{
 		if (cmd->outfile >= 0)

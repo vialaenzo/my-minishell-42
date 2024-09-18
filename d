@@ -1,0 +1,9 @@
+d
+includes
+libft
+Makefile
+memcheck.log
+minishell
+obj
+srcs
+valgrind_ignore.supp

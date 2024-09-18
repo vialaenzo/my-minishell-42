@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:37 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:25:38 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 10:43:51 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	ft_export(t_data *data, char **args)
 	if (!args)
 		return (1);
 	if (ft_size_tab(args) == 1)
-		return (ft_env(&data->export), 0);
+		return (ft_env(&data->export, "export"), 0);
 	if (1 && ft_size_tab(args) > 1 && args[1][0] == '-')
 	{
 		ft_printf(1, "minishell: export: %c%c: invalid option\n", args[1][0],

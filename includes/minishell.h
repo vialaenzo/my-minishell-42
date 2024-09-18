@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:29:48 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:29:49 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 10:42:46 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_type
 	ARG,
 }					t_type;
 
-extern pid_t		g_pid;
+extern pid_t		g_signal_pid;
 
 typedef struct s_cmd
 {
@@ -73,6 +73,7 @@ typedef struct s_data
 	t_cmd			*cmd;
 	int				exit_code;
 	int				pipe[2];
+	int				heredoc_fd;
 }					t_data;
 
 // parsing/verif_quotes.c
@@ -138,7 +139,7 @@ int					ft_expand(char **line, t_data *data);
 // builtins/*.c
 int					ft_cd(t_data *data, char **args);
 int					ft_echo(char **args);
-int					ft_env(t_liste **env);
+int					ft_env(t_liste **env, char *prefix);
 int					ft_export(t_data *data, char **args);
 int					ft_check_key(char *key);
 int					ft_export_one(t_liste **env, t_liste **export, char *str);

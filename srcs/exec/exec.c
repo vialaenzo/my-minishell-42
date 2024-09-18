@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:05 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:31:47 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 10:33:40 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,16 @@ static void	handle_parent_process(t_cmd *cmd, int *pipe_fds)
 		close(cmd->infile);
 	if (cmd->infile == -2)
 		cmd->infile = pipe_fds[0];
-	if (cmd->next != NULL && cmd->next->infile == -2)
-		cmd->next->infile = pipe_fds[0];
 	else
 		close(pipe_fds[0]);
 }
 
 static bool	exec_env_cmd(t_data *data, t_cmd *cmd, int *pipe_fds)
 {
-	g_pid = fork();
-	if (g_pid < 0)
+	pid_t(pid) = fork();
+	if (pid < 0)
 		free_everything(data, "Fork failed", 1);
-	else if (!g_pid)
+	else if (!pid)
 	{
 		if (cmd && cmd->cmd_param && cmd->cmd_param[0])
 			child_process(data, cmd, pipe_fds);
@@ -66,6 +64,16 @@ bool	exec(t_data *data)
 			return (true);
 		exec_env_cmd(data, tmp, pip);
 		tmp = tmp->next;
+	}
+	if (data->pipe[0] >= 0)
+	{
+		close(data->pipe[0]);
+		data->pipe[0] = -1;
+	}
+	if (data->pipe[1] >= 0)
+	{
+		close(data->pipe[1]);
+		data->pipe[1] = -1;
 	}
 	wait_all(data);
 	return (true);

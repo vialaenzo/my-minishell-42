@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:21 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:26:22 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 10:36:25 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static void	handle_sigint(int i)
 	ft_printf(1, "\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	if (g_pid == 0)
-		rl_redisplay();
+	rl_redisplay();
+	g_signal_pid = 130;
 }
 
-//static void	handle_quit(int i)
+// static void	handle_quit(int i)
 //{
 //	(void)i;
 //}

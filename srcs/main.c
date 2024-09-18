@@ -6,19 +6,19 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:26 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 15:01:15 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 10:41:05 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-pid_t		g_pid;
+pid_t		g_signal_pid;
 
 void	init_data(t_data *data, int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	g_pid = 0;
+	g_signal_pid = 0;
 	data->env = NULL;
 	data->export = NULL;
 	data->token = NULL;
@@ -58,11 +58,7 @@ static bool	ft_parse(t_data *data, char *line)
 
 int	ft_env_copy(t_data *data, char **env)
 {
-	int	i;
-
-	if (!env || !env[0])
-		return (0);
-	i = -1;
+	int (i) = -1;
 	while (env[++i])
 	{
 		if (ft_export_one(&data->env, &data->export, env[i]))
@@ -93,13 +89,14 @@ int	main(int argc, char **argv, char **env)
 		line = readline("\033[0;35mminishell>\033[0m ");
 		if (!line)
 			free_everything(&data, "exit", data.exit_code);
+		data.exit_code = g_signal_pid;
 		if ((invalid_line(line)))
 			continue ;
 		add_history(line);
 		if (!ft_parse(&data, line))
 			continue ;
 		ft_start(&data);
-		g_pid = 0;
+		g_signal_pid = 0;
 	}
 	rl_clear_history();
 	free_everything(&data, NULL, -1);
