@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:03 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:29:42 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:51:50 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*cmd_finder(t_data *data, t_cmd *cmd, t_liste *env)
 		return (ft_printf(2, "minishell: : command not found\n"), NULL);
 	char *(paths) = create_paths(env, ft_liste_size(&env));
 	if (!paths || ft_strlen(the_cmd) > PATH_MAX / 2)
-		return (perror(the_cmd), NULL);
+		return (ft_printf(2, "minishell: %s : command not found\n", the_cmd), NULL);
 	int (i) = 0;
 	int (len) = ft_strlen(paths);
 	while (i < len)

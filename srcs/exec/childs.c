@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:52 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:25:53 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 14:00:18 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	run_built(t_data *data, t_cmd *cmd, int *pipe_fds)
 
 void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 {
+	signal(SIGINT, SIG_IGN);
 	char **(env) = NULL;
 	ft_env_to_tab(&data->env, &env);
 	if (!env)

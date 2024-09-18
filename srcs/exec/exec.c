@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:05 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 11:19:50 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 14:01:12 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static bool	exec_env_cmd(t_data *data, t_cmd *cmd, int *pipe_fds)
 	pid_t (pid) = fork();
 	if (pid < 0)
 		free_everything(data, "Fork failed", 1);
-	else if (!pid)
+	else if (pid == 0)
 	{
 		if (cmd && cmd->cmd_param && cmd->cmd_param[0])
 			child_process(data, cmd, pipe_fds);

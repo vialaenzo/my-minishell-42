@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:21 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 11:30:04 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:55:58 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ static void	handle_sigint(int i)
 	rl_redisplay();
 	g_signal = 130;
 }
-
-// static void	handle_quit(int i)
-//{
-//	(void)i;
-//}
 
 void	signals(void)
 {

@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:53 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:25:54 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:51:45 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ bool	is_cmd(t_data *data, t_cmd *cmd)
 		return (data->exit_code = 127, false);
 	if (access((cmd->path), X_OK))
 	{
-		ft_printf(2, "minishell: ");
-		perror(cmd->path);
+		ft_printf(2, "minishell: %s :command not found\n", the_cmd);
 		return (data->exit_code = 126, false);
 	}
 	if (!check_if_directory(data, the_cmd, cmd))

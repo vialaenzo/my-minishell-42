@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:10 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:26:11 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:48:10 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,13 @@ static int	choice_file(t_data *data, char *filename, int type)
 
 static bool	get_in(t_data *data, t_token *tmp, t_cmd *cmd)
 {
-	if (tmp->type == INPUT)
+	if (tmp->type == INPUT || tmp->type == HEREDOC)
 	{
 		if (cmd->infile >= 0)
 			close(cmd->infile);
 		if (tmp->next == NULL || tmp->next->type <= 5)
 			return (error_token(tmp));
-		cmd->infile = choice_file(data, tmp->next->str, INPUT);
-		if (cmd->infile == -1)
-			return (false);
-	}
-	else if (tmp->type == HEREDOC)
-	{
-		if (cmd->infile >= 0)
-			close(cmd->infile);
-		if (tmp->next == NULL || tmp->next->type <= 5)
-			return (error_token(tmp));
-		cmd->infile = choice_file(data, tmp->next->str, HEREDOC);
+		cmd->infile = choice_file(data, tmp->next->str, tmp->type);
 		if (cmd->infile == -1)
 			return (false);
 	}
@@ -72,23 +62,13 @@ bool	get_infile(t_data *data, t_token *token, t_cmd *cmd)
 
 static bool	get_out(t_token *tmp, t_cmd *cmd)
 {
-	if (tmp->type == TRUNC)
+	if (tmp->type == TRUNC || tmp->type == APPEND)
 	{
 		if (cmd->outfile >= 0)
 			close(cmd->outfile);
 		if (tmp->next == NULL || tmp->next->type <= 5)
 			return (error_token(tmp));
-		cmd->outfile = choice_file(NULL, tmp->next->str, TRUNC);
-		if (cmd->outfile == -1)
-			return (false);
-	}
-	else if (tmp->type == APPEND)
-	{
-		if (cmd->outfile >= 0)
-			close(cmd->outfile);
-		if (tmp->next == NULL || tmp->next->type <= 5)
-			return (error_token(tmp));
-		cmd->outfile = choice_file(NULL, tmp->next->str, APPEND);
+		cmd->outfile = choice_file(NULL, tmp->next->str, tmp->type);
 		if (cmd->outfile == -1)
 			return (false);
 	}
