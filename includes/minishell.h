@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:29:48 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 10:42:46 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 11:16:42 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_type
 	ARG,
 }					t_type;
 
-extern pid_t		g_signal_pid;
+extern int		g_signal;
 
 typedef struct s_cmd
 {
@@ -73,7 +73,6 @@ typedef struct s_data
 	t_cmd			*cmd;
 	int				exit_code;
 	int				pipe[2];
-	int				heredoc_fd;
 }					t_data;
 
 // parsing/verif_quotes.c

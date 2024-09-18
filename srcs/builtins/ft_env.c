@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:39 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 10:42:33 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/18 11:14:02 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	ft_env(t_liste **env, char *prefix)
 {
+	t_liste	*current;
+
 	ft_env_sort(env);
-	t_liste	(*current) = *env;
+	current = *env;
 	while (current->prev)
 		current = current->prev;
 	while (current)

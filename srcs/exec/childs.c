@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:52 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 10:44:23 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/17 12:25:53 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,7 @@ void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 	if (!env)
 		free_everything(data, "Alloc Tab_Env Failed", 1);
 	if (cmd->skip_cmd)
-	{
 		data->exit_code = 1;
-		close(pipe_fds[0]);
-		close(pipe_fds[1]);
-	}
 	else if (is_builtin(cmd->cmd_param[0]))
 		run_built(data, cmd, pipe_fds);
 	else if (is_cmd(data, cmd))
@@ -62,9 +58,5 @@ void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 		execve(cmd->path, cmd->cmd_param, env);
 		free(env);
 	}
-	if (cmd->infile >= 0)
-		close(cmd->infile);
-	if (cmd->outfile >= 0)
-		close(cmd->outfile);
 	free_everything(data, NULL, data->exit_code);
 }
