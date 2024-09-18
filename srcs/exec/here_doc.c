@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:26:06 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/18 09:53:19 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static bool	read_heredoc(t_data *data, int fd, char *limiter)
@@ -11,7 +23,8 @@ static bool	read_heredoc(t_data *data, int fd, char *limiter)
 			ft_error("Buf readline");
 			break ;
 		}
-		if ((ft_strncmp(limiter, buf, ft_strlen(limiter)) == 0))
+		
+		if ((ft_strncmp(limiter, buf, ft_strlen(limiter)+1) == 0))
 			break ;
 		if (!ft_expand(&buf, data))
 			free_everything(data, "Allocation failed", 1);

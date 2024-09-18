@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:26:09 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:26:10 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	ft_expand_code(char **str, int *index, t_data *data)
@@ -48,7 +60,7 @@ static int	ft_get_quotation(int *quote, char c)
 	else if ((*quote) == 0 && c == '"')
 		(*quote) = 2;
 	else if ((*quote) == 1 && c == '\'')
-		(*quote) = 0;	
+		(*quote) = 0;
 	else if ((*quote) == 2 && c == '"')
 		(*quote) = 0;
 	return (*quote);

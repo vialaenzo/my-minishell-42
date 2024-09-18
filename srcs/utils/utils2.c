@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:26:24 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:29:09 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 bool	error_token(t_token *token)
 {
-	if (token->next == NULL)
+	if (!token->next)
 		ft_error("syntax error near unexpected token 'newline'");
 	else
 		ft_printf(2, "minishell: syntax error near unexpected token '%s'\n"\
@@ -38,4 +50,16 @@ int	ft_size_tab(char **tab)
 		tab++;
 	}
 	return (size);
+}
+
+bool	verif_special(t_data *data)
+{
+	t_token (*tmp) = data->token;
+	while (tmp->prev)
+		tmp = tmp->prev;
+	if (!ft_strncmp(tmp->str, ":", 2) || !ft_strncmp(tmp->str, "#", 2))
+		return (data->exit_code = 0, false);
+	else if (!ft_strncmp(tmp->str, "!", 2))
+		return (data->exit_code = 1, false);
+	return (true);
 }

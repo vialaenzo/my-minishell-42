@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins_starter.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:25:47 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:25:48 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 {
-	if (!ft_strncmp("echo", cmd->cmd_param[0], 4))
+	if (!ft_strncmp("echo", cmd->cmd_param[0], 5))
 		data->exit_code = ft_echo(cmd->cmd_param);
-	else if (!ft_strncmp("cd", cmd->cmd_param[0], 2))
+	else if (!ft_strncmp("cd", cmd->cmd_param[0], 3))
 		data->exit_code = ft_cd(data, cmd->cmd_param);
-	else if (!ft_strncmp("pwd", cmd->cmd_param[0], 3))
+	else if (!ft_strncmp("pwd", cmd->cmd_param[0], 4))
 		data->exit_code = ft_pwd(cmd->cmd_param);
-	else if (!ft_strncmp("export", cmd->cmd_param[0], 6))
+	else if (!ft_strncmp("export", cmd->cmd_param[0], 7))
 		data->exit_code = ft_export(data, cmd->cmd_param);
-	else if (!ft_strncmp("unset", cmd->cmd_param[0], 5))
+	else if (!ft_strncmp("unset", cmd->cmd_param[0], 6))
 		data->exit_code = ft_unset(data, cmd->cmd_param);
-	else if (!ft_strncmp("env", cmd->cmd_param[0], 3))
+	else if (!ft_strncmp("env", cmd->cmd_param[0], 4))
 		data->exit_code = ft_env(&data->env);
-	else if (!ft_strncmp("exit", cmd->cmd_param[0], 4))
+	else if (!ft_strncmp("exit", cmd->cmd_param[0], 5))
 	{
 		if (cmd->outfile >= 0)
 		{

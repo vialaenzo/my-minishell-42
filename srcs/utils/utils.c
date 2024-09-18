@@ -1,17 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:26:23 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:28:57 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 bool	ft_error(char *str)
 {
 	if (str)
 		ft_printf(2, "minishell: %s\n", str);
-	return (false);
-}
-
-bool	is_space(char c)
-{
-	if (c && (c == ' ' || c == '\n' || c == '\r' || c == '\f' || c == '\t'
-			|| c == '\v'))
-		return (true);
 	return (false);
 }
 
@@ -39,10 +43,10 @@ int	is_special(char *str)
 bool	check_is_pipe(t_data *data)
 {
 	t_token *(tmp) = data->token;
-	while (tmp && tmp->next)
+	while (tmp)
 	{
-		if ((tmp->type == PIPE && tmp->next->type == PIPE) || (!tmp->next
-				&& tmp->type == PIPE) || (!tmp->prev && tmp->type == PIPE))
+		if ((!tmp->next && tmp->type == PIPE)
+			|| (!tmp->prev && tmp->type == PIPE))
 		{
 			ft_error("Syntax error unexpected '|' token");
 			ft_token_clear(&data->token);
@@ -54,12 +58,20 @@ bool	check_is_pipe(t_data *data)
 	return (true);
 }
 
-bool	empty_line(char *line)
+bool	is_space(char c)
 {
-	int (i) = 0;
+	if (c && (c == ' ' || c == '\n' || c == '\r' || c == '\f' || c == '\t'
+			|| c == '\v'))
+		return (true);
+	return (false);
+}
+
+bool	invalid_line(char *line)
+{
+	size_t (i) = 0;
 	while (line[i] && is_space(line[i]))
 		i++;
-	if (i == (int)ft_strlen(line))
+	if (i == ft_strlen(line))
 	{
 		free(line);
 		return (true);

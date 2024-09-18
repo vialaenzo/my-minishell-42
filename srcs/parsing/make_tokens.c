@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_tokens.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:26:13 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:26:14 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	special_size_cmd(char *command, int *quotes)
@@ -111,17 +123,9 @@ bool	make_tokens(t_token **begin, char *line)
 		while (is_space(*line))
 			line++;
 		if (*line && !is_special(line) && !add_cmd(begin, &line))
-		{
-			if (*begin)
-				ft_token_clear(begin);
-			return (false);
-		}
+			return (ft_token_clear(begin), false);
 		else if (*line && is_special(line) && !add_special(begin, &line))
-		{
-			if (*begin)
-				ft_token_clear(begin);
-			return (false);
-		}
+			return (ft_token_clear(begin), false);
 	}
 	return (true);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmds2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:26:03 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:29:42 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	ft_strjoin_slash(char *dest, char *str, char *env, int *index)
@@ -28,9 +40,11 @@ static char	*create_paths(t_liste *env, int len)
 
 char	*cmd_finder(t_data *data, t_cmd *cmd, t_liste *env)
 {
-	char		path[PATH_MAX];
+	char	path[PATH_MAX];
 
 	char *(the_cmd) = cmd->cmd_param[0];
+	if (!the_cmd || the_cmd[0] == '\0')
+		return (ft_printf(2, "minishell: : command not found\n"), NULL);
 	char *(paths) = create_paths(env, ft_liste_size(&env));
 	if (!paths || ft_strlen(the_cmd) > PATH_MAX / 2)
 		return (perror(the_cmd), NULL);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:29:48 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:29:49 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -105,17 +117,18 @@ t_liste				*ft_liste_new(char *str);
 bool				ft_error(char *str);
 bool				is_space(char c);
 int					is_special(char *str);
-bool				empty_line(char *line);
+bool				invalid_line(char *line);
 bool				check_is_pipe(t_data *data);
 
 // utils/utils2.c
 bool				error_token(t_token *token);
 int					ft_str_add_chr(char **str, char c);
 int					ft_size_tab(char **tab);
+bool				verif_special(t_data *data);
 
 // utils/ft_env.c
 int					ft_env_get(char *key, char **value, t_liste *env);
-int					ft_env_new(t_data* data);
+int					ft_env_new(t_data *data);
 int					ft_env_sort(t_liste **env);
 int					ft_env_to_tab(t_liste **env, char ***tab);
 

@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:26:08 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:26:09 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 bool	is_builtin(char *cmd)
 {
 	if (!cmd)
 		return (false);
-	if (!ft_strncmp("echo", cmd, 4) || !ft_strncmp("cd", cmd, 2) \
-	|| !ft_strncmp("pwd", cmd, 3) || !ft_strncmp("export", cmd, 6) \
-	|| !ft_strncmp("unset", cmd, 5) || !ft_strncmp("env", cmd, 3) \
-	|| !ft_strncmp("exit", cmd, 4))
+	if (!ft_strncmp("echo", cmd, 5) || !ft_strncmp("cd", cmd, 3) \
+	|| !ft_strncmp("pwd", cmd, 4) || !ft_strncmp("export", cmd, 7) \
+	|| !ft_strncmp("unset", cmd, 6) || !ft_strncmp("env", cmd, 4) \
+	|| !ft_strncmp("exit", cmd, 5))
 		return (true);
 	return (false);
 }

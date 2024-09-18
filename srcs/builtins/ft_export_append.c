@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export_append.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:25:32 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/18 09:52:23 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	ft_get_key_value(char **key, char **value, char *str)
@@ -67,7 +79,6 @@ int	ft_export_one_append(t_liste **env, t_liste **export, char *str)
 	char *(ap_value) = NULL;
 	if (!str || !ft_get_key_value(&key, &ap_value, str))
 		return (1);
-	ft_printf(2, "key : %s | value : %s\n", key, ap_value);
 	if (!ft_check_key(key))
 		return (ft_printf(2,
 				"minishell: export: '%s': not a valid identifier\n", str),

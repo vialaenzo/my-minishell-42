@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:26:15 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:26:16 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 const char	*type_to_str(t_type type)
@@ -48,7 +60,7 @@ void	cmd_display(t_cmd *cmd)
 	t_cmd *(current) = cmd;
 	while (current)
 	{
-		ft_printf(2, "CMD : %s | Infile : %d | Outfile %d | Skip : %d\n",
+		ft_printf(2, "CMD : |%s| | Infile : %d | Outfile %d | Skip : %d\n",
 			current->cmd_param[0], current->infile,
 			current->outfile, current->skip_cmd);
 		ft_printf(2, "Liste des params : \n");

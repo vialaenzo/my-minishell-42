@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmds.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/17 12:25:53 by eviala            #+#    #+#             */
+/*   Updated: 2024/09/17 12:25:54 by eviala           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	ab_path(t_data *data, char *the_cmd, t_cmd *cmd)
@@ -16,10 +28,20 @@ static bool	check_if_directory(t_data *data, char *the_cmd, t_cmd *cmd)
 		perror("minishell: lstat failed");
 		return (data->exit_code = 126, false);
 	}
-	if (!S_ISREG(path_stat.st_mode))
+	if (!S_ISREG(path_stat.st_mode) && !S_ISLNK(path_stat.st_mode))
 	{
-		ft_printf(2, "minishell: %s : Is a directory\n", the_cmd);
-		return (data->exit_code = 126, false);
+		if (S_ISDIR(path_stat.st_mode))
+		{
+			ft_printf(2, "minishell: %s: Is a directory\n", the_cmd);
+			return (data->exit_code = 126, false);
+		}
+		if (access(cmd->path, X_OK) == 0)
+			return (true);
+		else
+		{
+			ft_printf(2, "minishell: %s: Permission denied\n", the_cmd);
+			return (data->exit_code = 126, false);
+		}
 	}
 	return (true);
 }
