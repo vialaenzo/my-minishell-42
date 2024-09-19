@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:04:23 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 12:38:48 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/19 10:40:27 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,8 @@ static void	handle_sigint_child(int signum)
 static bool	read_heredoc(t_data *data, char *limiter)
 {
 	int		fd;
-	char	*buf;
 
-	buf = NULL;
+	char (*buf) = NULL;
 	signal(SIGINT, &handle_sigint_child);
 	while (1)
 	{
@@ -83,10 +82,7 @@ static bool	read_heredoc(t_data *data, char *limiter)
 			free_everything(data, "Allocation failed", 1);
 		fd = open(".heredoc.tmp", O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd < 0)
-		{
-			ft_error("Failed to create temp file");
-			return (false);
-		}
+			return (ft_error("Failed to create temp file"), false);
 		ft_printf(fd, "%s\n", buf);
 		close(fd);
 		free(buf);
@@ -96,7 +92,7 @@ static bool	read_heredoc(t_data *data, char *limiter)
 
 int	here_doc(t_data *data, char *limiter)
 {
-	int					status;
+	int		status;
 
 	pid_t (pid) = fork();
 	if (pid < 0)
@@ -118,7 +114,7 @@ int	here_doc(t_data *data, char *limiter)
 			return (unlink(".heredoc.tmp"), -1);
 		int (fd) = open(".heredoc.tmp", O_RDONLY);
 		if (fd < 0)
-			return (unlink(".heredoc.tmp") ,-1);
+			return (unlink(".heredoc.tmp"), -1);
 		return (unlink(".heredoc.tmp"), fd);
 	}
 }

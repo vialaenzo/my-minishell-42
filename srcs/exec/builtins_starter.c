@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:47 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 11:14:29 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/19 10:15:08 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,36 @@ static void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 	}
 }
 
+// bool	builtins_starter(t_data *data, t_cmd *cmd)
+//{
+//	int (stdout_copy) = -1;
+//	if (cmd->outfile >= 0)
+//	{
+//		stdout_copy = dup(1);
+//		dup2(cmd->outfile, 1);
+//	}
+//	exec_builtin(stdout_copy, data, cmd);
+//	if (cmd->outfile >= 0)
+//	{
+//		dup2(stdout_copy, 1);
+//		close(stdout_copy);
+//	}
+//	return (true);
+//}
+
 bool	builtins_starter(t_data *data, t_cmd *cmd)
 {
-	int (stdout_copy) = -1;
+	int	stdout_copy;
+
+	stdout_copy = -1;
 	if (cmd->outfile >= 0)
 	{
 		stdout_copy = dup(1);
 		dup2(cmd->outfile, 1);
+		close(cmd->outfile);
 	}
 	exec_builtin(stdout_copy, data, cmd);
-	if (cmd->outfile >= 0)
+	if (stdout_copy >= 0)
 	{
 		dup2(stdout_copy, 1);
 		close(stdout_copy);
