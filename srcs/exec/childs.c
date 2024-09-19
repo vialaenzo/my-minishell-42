@@ -6,11 +6,12 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:52 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/19 10:14:53 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/19 13:36:01 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <dirent.h>
 
 static void	redirect_pipe(t_cmd *cmd, int *pipe_fds)
 {
@@ -62,14 +63,39 @@ static void	run_built(t_data *data, t_cmd *cmd, int *pipe_fds)
 //	free_everything(data, NULL, data->exit_code);
 //}
 
+int	count_open_fds(void)
+{
+	DIR				*dir;
+	struct dirent	*entry;
+	int				count;
+
+	count = 0;
+	dir = opendir("/proc/self/fd");
+	if (!dir)
+	{
+		perror("opendir");
+		return (-1);
+	}
+	entry = readdir(dir);
+	while (entry != NULL)
+	{
+		if (entry->d_name[0] != '.')
+		{
+			count++;
+		}
+		entry = readdir(dir);
+	}
+	closedir(dir);
+	return (count);
+}
+
 void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 {
-	char	**env;
-	int		max_fd;
-	int		fd;
+	int	max_fd;
 
+	int (fd) = 2;
+	char (**env) = NULL;
 	signal(SIGINT, SIG_IGN);
-	env = NULL;
 	ft_env_to_tab(&data->env, &env);
 	if (!env)
 		free_everything(data, "Alloc Tab_Env Failed", 1);
@@ -82,15 +108,10 @@ void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 		redirect_pipe(cmd, pipe_fds);
 		rl_clear_history();
 		signals_quit();
-		// Fermer tous les descripteurs de fichiers non utilisés
-		max_fd = sysconf(_SC_OPEN_MAX);
-		fd = 3;
-		while (fd < max_fd)
-		{
+		max_fd = count_open_fds();
+		while (++fd < max_fd)
 			if (fd != cmd->infile && fd != cmd->outfile && fd != pipe_fds[1])
 				close(fd);
-			fd++;
-		}
 		execve(cmd->path, cmd->cmd_param, env);
 		free(env);
 	}

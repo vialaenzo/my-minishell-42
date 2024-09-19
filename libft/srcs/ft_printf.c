@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 10:23:00 by eviala            #+#    #+#             */
-/*   Updated: 2024/08/03 12:34:08 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/19 13:35:57 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ int	ft_printf(int fd, const char *str, ...)
 	while (str[i])
 	{
 		if (str[i] == '%')
-		{
 			count += ft_whichprint(fd, str, &i, args);
-		}
 		else
 			count += ft_putchar_fd_printf(str[i], fd);
 		i++;
