@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:03 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 13:51:50 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:28:10 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static int	ft_strjoin_slash(char *dest, char *str, char *env, int *index)
 {
-	int (i) = 0;
+	int(i) = 0;
 	while (*index < (PATH_MAX - 1) && env[(*index)] && env[(*index)] != ':')
 		dest[i++] = env[(*index)++];
 	++(*index);
 	dest[i++] = '/';
-	int (j) = 0;
+	int(j) = 0;
 	while (j < (PATH_MAX - 1) && str[j])
 		dest[i++] = str[j++];
 	dest[i] = '\0';
@@ -47,7 +47,8 @@ char	*cmd_finder(t_data *data, t_cmd *cmd, t_liste *env)
 		return (ft_printf(2, "minishell: : command not found\n"), NULL);
 	char *(paths) = create_paths(env, ft_liste_size(&env));
 	if (!paths || ft_strlen(the_cmd) > PATH_MAX / 2)
-		return (ft_printf(2, "minishell: %s : command not found\n", the_cmd), NULL);
+		return (ft_printf(2, "minishell: %s : command not found\n",
+		the_cmd),NULL);
 	int (i) = 0;
 	int (len) = ft_strlen(paths);
 	while (i < len)
