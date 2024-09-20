@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:26 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 10:13:15 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 12:26:22 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ static bool	ft_parse(t_data *data, char *line)
 {
 	if (!line)
 		return (false);
-	if (verif_quotes(data, line))
+	if (verif_quotes(data, line) == 1)
 		return (free(line), false);
-	if ((ft_expand(&line, data)) && (!make_tokens(&data->token, line)))
+	if (!(ft_expand(&line, data)) || (!make_tokens(&data->token, line)))
 		return (free(line), free_everything(data, "Make token error", 1),
 			false);
 	free(line);
+	if (!data->token)
+		return (ft_token_clear(&data->token), false);
 	if (!verif_special(data))
 		return (ft_token_clear(&data->token), false);
 	if (data->token && (ft_token_last(&data->token)->type == PIPE)

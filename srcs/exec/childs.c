@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:52 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 09:58:16 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 12:07:51 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 			if (fd != cmd->infile && fd != cmd->outfile && fd != pipe_fds[1])
 				close(fd);
 		execve(cmd->path, cmd->cmd_param, env);
-		free(env);
 	}
+	ft_free_tab(env);
 	free_everything(data, NULL, data->exit_code);
 }

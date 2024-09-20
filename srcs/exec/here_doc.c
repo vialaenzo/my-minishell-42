@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:04:23 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 09:28:37 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:44:24 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	read_heredoc(t_data *data, char *limiter)
 		close(fd);
 		free(buf);
 	}
-	return (free(buf), close(fd), true);
+	return (free(buf), true);
 }
 
 int	here_doc(t_data *data, char *limiter)
