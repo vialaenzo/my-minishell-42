@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:52 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 09:27:22 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:58:16 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	run_built(t_data *data, t_cmd *cmd, int *pipe_fds)
 	builtins_starter(data, cmd);
 }
 
-int	count_open_fds(void)
+static int	count_open_fds(void)
 {
 	DIR				*dir;
 	struct dirent	*entry;

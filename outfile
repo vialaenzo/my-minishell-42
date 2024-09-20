@@ -1,0 +1,2 @@
+	parsing/make_cmds.c \
+	parsing/make_tokens.c \

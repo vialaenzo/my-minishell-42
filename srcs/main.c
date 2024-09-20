@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:26 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 12:41:44 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 10:13:15 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_data(t_data *data, int argc, char **argv)
 	data->export = NULL;
 	data->token = NULL;
 	data->cmd = NULL;
+	data->path = "/usr/bin/";
 	data->exit_code = 0;
 	data->pipe[0] = -1;
 	data->pipe[1] = -1;

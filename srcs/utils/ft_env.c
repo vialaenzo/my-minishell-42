@@ -6,11 +6,25 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:18 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:26:19 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 10:27:50 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_env_has(char *key, t_liste *env)
+{
+	if (!key || !env)
+		return (0);
+	t_liste *(current) = env;
+	while (current)
+	{
+		if (ft_strncmp(key, current->str, ft_strlen(key)) == 0)
+			return (1);
+		current = current->next;
+	}
+	return (0);
+}
 
 int	ft_env_get(char *key, char **value, t_liste *env)
 {

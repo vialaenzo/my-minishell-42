@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:53 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 13:51:45 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 10:40:19 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,18 @@ static bool	check_if_directory(t_data *data, char *the_cmd, t_cmd *cmd)
 bool	is_cmd(t_data *data, t_cmd *cmd)
 {
 	char *(the_cmd) = cmd->cmd_param[0];
-	if (!ft_strchr(the_cmd, '/'))
+	if (ft_strchr(the_cmd, '/'))
+		ab_path(data, the_cmd, cmd);
+	else if (!ft_env_has("PATH", data->env) && data->path != NULL)
+	{
+		cmd->path = ft_strjoin(data->path, the_cmd);
+		if (!cmd->path)
+			return (data->exit_code = 127, false);
+	}
+	else if (ft_env_has("PATH", data->env))
 		cmd->path = cmd_finder(data, cmd, data->env);
 	else
-		ab_path(data, the_cmd, cmd);
+		cmd->path = ft_strdup(the_cmd);
 	if (!(cmd->path) && data->exit_code == -1)
 		free_everything(data, NULL, data->exit_code);
 	if (!(cmd->path))

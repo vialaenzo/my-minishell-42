@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:29:48 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 11:16:42 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 10:03:34 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_type
 	ARG,
 }					t_type;
 
-extern int		g_signal;
+extern int			g_signal;
 
 typedef struct s_cmd
 {
@@ -71,6 +71,7 @@ typedef struct s_data
 	t_liste			*export;
 	t_token			*token;
 	t_cmd			*cmd;
+	char			*path;
 	int				exit_code;
 	int				pipe[2];
 }					t_data;
@@ -131,6 +132,7 @@ int					ft_env_get(char *key, char **value, t_liste *env);
 int					ft_env_new(t_data *data);
 int					ft_env_sort(t_liste **env);
 int					ft_env_to_tab(t_liste **env, char ***tab);
+int					ft_env_has(char *key, t_liste *env);
 
 // parsing/expand.c
 int					ft_expand(char **line, t_data *data);

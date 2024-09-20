@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:46 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:25:47 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 10:31:43 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	ft_unset(t_data *data, char **args)
 	args++;
 	while (*args)
 	{
+		if (ft_strncmp(*args, "PATH", 5) == 0)
+			data->path = NULL;
 		if (!ft_check_key(*args))
 		{
 			ft_printf(2, "minishell: export: '%s': not a valid identifier\n",
