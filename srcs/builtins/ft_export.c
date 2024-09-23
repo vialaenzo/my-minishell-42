@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:37 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 11:14:37 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/22 14:56:13 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	ft_export_one(t_liste **env, t_liste **export, char *str)
 	if (!ft_check_key(key))
 		return (ft_printf(2,
 				"minishell: export: '%s': not a valid identifier\n", str),
-			free(key), free(value), 0);
+			free(key), free(value), 1);
 	char *(export_str) = ft_strdup(str);
 	if (!export_str)
 		return (free(key), free(value), 1);

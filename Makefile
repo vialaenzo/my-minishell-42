@@ -55,6 +55,7 @@ SRCS = main.c \
 	utils/ft_tokens.c \
 	utils/utils.c \
 	utils/utils2.c \
+	utils/utils3.c
 
 MAKEFLAGS += --no-print-directory
 TOTAL_FILES := $(words $(SRCS))

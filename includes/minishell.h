@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:29:48 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 10:03:34 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/23 13:48:29 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void				ft_exit(t_data *data, char **args);
 
 // ft_free.c
 void				free_everything(t_data *data, char *err, int ext);
+void				free_everything_heredoc(t_data *data, char *err, int ext);
 
 // exec/here_doc
 int					here_doc(t_data *data, char *limiter);
@@ -169,6 +170,8 @@ void				wait_all(t_data *data);
 
 // exec/childs.c
 void				child_process(t_data *data, t_cmd *cmd, int *pipe_fds);
+int					ft_export_last_arg(t_data *data);
+int					ft_export_last_cmd(t_data *data);
 
 // exec/exec_cmds.c
 bool				is_cmd(t_data *data, t_cmd *cmd);

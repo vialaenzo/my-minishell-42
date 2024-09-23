@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:18 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 10:27:50 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 16:31:14 by dtrala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,15 @@ int	ft_env_new(t_data *data)
 		return (0);
 	ft_export_one(&data->env, &data->export, pwd_entry);
 	ft_export_one(&data->env, &data->export, "SHLVL=1");
-	ft_liste_add_back(&data->env, ft_liste_new(ft_strdup("_=/usr/bin/env")));
 	ft_export_one(&data->env, &data->export, "OLDPWD");
+	char *(minishell_p) = ft_strjoin("_=", pwd);
+	minishell_p = ft_strjoin_free(minishell_p, "/");
+	minishell_p = ft_strjoin_free(minishell_p, "minishell");
+	if (!minishell_p)
+		return(0);
+	ft_liste_add_back(&data->env, ft_liste_new(ft_strdup(minishell_p)));
+	free(minishell_p);
 	free(pwd);
 	free(pwd_entry);
-	if (ft_liste_size(&data->export) != 3 || ft_liste_size(&data->export) != 3)
-		return (0);
-	return (1);
+	return (ft_liste_size(&data->export) == 3 && ft_liste_size(&data->export) == 3);
 }

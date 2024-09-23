@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:47 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 09:27:30 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/22 15:26:03 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ bool	builtins_starter(t_data *data, t_cmd *cmd)
 	if (cmd->outfile >= 0)
 	{
 		stdout_copy = dup(1);
+		if (stdout_copy == -1)
+		{
+			ft_error("dup failed");
+			return (false);
+		}
 		dup2(cmd->outfile, 1);
 		close(cmd->outfile);
 	}

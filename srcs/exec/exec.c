@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:05 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 09:28:25 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/22 14:40:12 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,23 @@ static void	handle_parent_process(t_cmd *cmd, int *pipe_fds)
 		close(cmd->outfile);
 	if (cmd->infile == -2)
 		cmd->infile = pipe_fds[0];
-	else if (cmd->next != NULL && cmd->next->infile == -2)
+	if (cmd->next != NULL && cmd->next->infile == -2)
 		cmd->next->infile = pipe_fds[0];
 	else
 		close(pipe_fds[0]);
 }
 
+void	sig_abort_handler(int i)
+{
+	(void)i;
+	ft_printf(2, "Quit (core dumped)\n");
+	g_signal = 131;
+}
+
 static bool	exec_env_cmd(t_data *data, t_cmd *cmd, int *pipe_fds)
 {
+	signal(SIGQUIT, &sig_abort_handler);
+	ft_export_last_cmd(data);
 	pid_t (pid) = fork();
 	if (pid < 0)
 		free_everything(data, "Fork failed", 1);

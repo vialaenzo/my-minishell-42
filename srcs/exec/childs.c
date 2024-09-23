@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:52 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 12:07:51 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/23 14:06:44 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 {
 	int	max_fd;
 
-	int (fd) = 2;
-	char (**env) = NULL;
+	int(fd) = 2;
+	char **(env) = NULL;
 	signal(SIGINT, SIG_IGN);
 	ft_env_to_tab(&data->env, &env);
 	if (!env)

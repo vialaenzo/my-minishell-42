@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:26 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 12:26:22 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/22 14:12:58 by dtrala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,13 @@ int	ft_env_copy(t_data *data, char **env)
 
 static void	ft_start(t_data *data)
 {
+	ft_export_last_arg(data);
 	if (!exec(data))
 		free_everything(data, "Pipe error", 1);
 	ft_cmd_clear(&data->cmd);
 	ft_token_clear(&data->token);
 }
+
 
 int	main(int argc, char **argv, char **env)
 {
@@ -92,14 +94,15 @@ int	main(int argc, char **argv, char **env)
 		line = readline("\033[0;35mminishell>\033[0m ");
 		if (!line)
 			free_everything(&data, "exit", data.exit_code);
+		if (g_signal != 0)
+			data.exit_code = g_signal;
+		g_signal = 0;
 		if ((invalid_line(line)))
 			continue ;
 		add_history(line);
 		if (!ft_parse(&data, line))
 			continue ;
 		ft_start(&data);
-		if (g_signal != 0)
-			data.exit_code = g_signal;
 	}
 	rl_clear_history();
 	free_everything(&data, NULL, -1);

@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:15 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:26:16 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/22 14:24:36 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,3 +80,5 @@ bool	test_cmds(t_data *data)
 	cmd_display(data->cmd);
 	return (true);
 }
+
+

@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:39 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 11:14:02 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/20 17:24:26 by dtrala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ int	ft_env(t_liste **env, char *prefix)
 		current = current->prev;
 	while (current)
 	{
+		if (prefix && (ft_strncmp(current->str, "_\0", 2) == 0))
+		{
+			current = current->next;
+			continue;
+		}
+		if (prefix && (ft_strncmp(current->str, "_=", 2) == 0))
+		{
+			current = current->next;
+			continue;
+		}
 		if (prefix)
 			ft_printf(1, "%s ", prefix);
 		ft_printf(1, "%s\n", current->str);
