@@ -6,13 +6,13 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:05 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/22 14:40:12 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/24 13:58:15 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	handle_parent_process(t_cmd *cmd, int *pipe_fds)
+ static void	handle_parent_process(t_cmd *cmd, int *pipe_fds)
 {
 	close(pipe_fds[1]);
 	if (!cmd)
@@ -32,6 +32,7 @@ static void	handle_parent_process(t_cmd *cmd, int *pipe_fds)
 		close(pipe_fds[0]);
 }
 
+
 void	sig_abort_handler(int i)
 {
 	(void)i;
@@ -42,8 +43,8 @@ void	sig_abort_handler(int i)
 static bool	exec_env_cmd(t_data *data, t_cmd *cmd, int *pipe_fds)
 {
 	signal(SIGQUIT, &sig_abort_handler);
-	ft_export_last_cmd(data);
-	pid_t (pid) = fork();
+	// ft_export_last_cmd(data);
+	pid_t(pid) = fork();
 	if (pid < 0)
 		free_everything(data, "Fork failed", 1);
 	else if (pid == 0)
@@ -66,7 +67,7 @@ bool	exec(t_data *data)
 	int *(pip) = data->pipe;
 	t_cmd *(tmp) = data->cmd;
 	if (tmp && tmp->skip_cmd == false && !tmp->next && tmp->cmd_param[0]
-		&& is_builtin(tmp->cmd_param[0]))
+		&& is_builtin(tmp->cmd_param[0], "PARENT"))
 		return (builtins_starter(data, tmp));
 	if (pipe(pip) == -1)
 		return (false);

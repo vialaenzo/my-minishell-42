@@ -6,21 +6,26 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:08 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/18 11:19:31 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/24 09:56:55 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_builtin(char *cmd)
+bool	is_builtin(char *cmd, char *TYPE)
 {
 	if (!cmd)
 		return (false);
-	if (!ft_strncmp("echo", cmd, 5) || !ft_strncmp("cd", cmd, 3)
-		|| !ft_strncmp("pwd", cmd, 4) || !ft_strncmp("export", cmd, 7)
-		|| !ft_strncmp("unset", cmd, 6) || !ft_strncmp("env", cmd, 4)
-		|| !ft_strncmp("exit", cmd, 5))
-		return (true);
+	if (!TYPE)
+		return (false);
+	if (ft_strncmp(TYPE, "CHILD", 6) || ft_strncmp(TYPE, "PARENT", 7))
+		if (!ft_strncmp("echo", cmd, 5) || !ft_strncmp("pwd", cmd, 4)
+			|| !ft_strncmp("env", cmd, 4))
+			return (true);
+	if (ft_strncmp(TYPE, "ALONE", 6) || ft_strncmp(TYPE, "PARENT", 7))
+		if (!ft_strncmp("cd", cmd, 3) || !ft_strncmp("export", cmd, 7)
+			|| !ft_strncmp("unset", cmd, 6) || !ft_strncmp("exit", cmd, 5))
+			return (true);
 	return (false);
 }
 

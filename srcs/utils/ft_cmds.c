@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:16 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:26:17 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/23 14:44:59 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ t_cmd	*ft_cmd_last(t_cmd **list)
 
 void	free_all_cmd(t_cmd *tmp)
 {
-	if (tmp->infile > 0)
+	if (tmp->infile >= 0)
 		close(tmp->infile);
 	tmp->infile = -2;
-	if (tmp->outfile > 0)
+	if (tmp->outfile >= 0)
 		close(tmp->outfile);
 	tmp->outfile = -2;
 	if (tmp->path)

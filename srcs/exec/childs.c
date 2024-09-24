@@ -6,12 +6,11 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:52 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/23 14:06:44 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/24 14:22:11 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <dirent.h>
 
 static void	redirect_pipe(t_cmd *cmd, int *pipe_fds)
 {
@@ -29,16 +28,6 @@ static void	redirect_pipe(t_cmd *cmd, int *pipe_fds)
 	else if (cmd->next != NULL)
 		dup2(pipe_fds[1], 1);
 	close(pipe_fds[1]);
-}
-
-static void	run_built(t_data *data, t_cmd *cmd, int *pipe_fds)
-{
-	close(pipe_fds[0]);
-	if (cmd->outfile < 0 && cmd->next != NULL)
-		cmd->outfile = pipe_fds[1];
-	else
-		close(pipe_fds[1]);
-	builtins_starter(data, cmd);
 }
 
 static int	count_open_fds(void)
@@ -67,11 +56,41 @@ static int	count_open_fds(void)
 	return (count);
 }
 
+//static void	run_built(t_data *data, t_cmd *cmd, int *pipe_fds)
+//{
+//	(void)pipe_fds;
+//	close(pipe_fds[0]);
+//	if (cmd->infile >= 0)
+//	{
+//		dup2(cmd->infile, STDIN_FILENO);
+//		close(cmd->infile);
+//	}
+//	if (cmd->outfile >= 0)
+//	{
+//		dup2(cmd->outfile, STDOUT_FILENO);
+//		close(cmd->outfile);
+//	}
+//	else if (cmd->next != NULL)
+//		dup2(pipe_fds[1], STDOUT_FILENO);
+//	close(pipe_fds[1]);
+//	builtins_starter(data, cmd);
+//}
+
+bool exec_bis(t_cmd *cmd, int *pipe_fds)
+{
+	int (fd) = 2;
+	redirect_pipe(cmd, pipe_fds);
+	rl_clear_history();
+	signals_quit();
+	int (max_fd) = count_open_fds();
+	while (++fd < max_fd)
+		if (fd != cmd->infile && fd != cmd->outfile && fd != pipe_fds[1])
+			close(fd);
+	return (true);
+}
+
 void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 {
-	int	max_fd;
-
-	int(fd) = 2;
 	char **(env) = NULL;
 	signal(SIGINT, SIG_IGN);
 	ft_env_to_tab(&data->env, &env);
@@ -79,17 +98,14 @@ void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 		free_everything(data, "Alloc Tab_Env Failed", 1);
 	if (cmd->skip_cmd)
 		data->exit_code = 1;
-	else if (is_builtin(cmd->cmd_param[0]))
-		run_built(data, cmd, pipe_fds);
+	else if (is_builtin(cmd->cmd_param[0], "PARENT"))
+	{
+		exec_bis(cmd, pipe_fds);
+		builtins_starter(data, cmd);
+	}
 	else if (is_cmd(data, cmd))
 	{
-		redirect_pipe(cmd, pipe_fds);
-		rl_clear_history();
-		signals_quit();
-		max_fd = count_open_fds();
-		while (++fd < max_fd)
-			if (fd != cmd->infile && fd != cmd->outfile && fd != pipe_fds[1])
-				close(fd);
+		exec_bis(cmd, pipe_fds);
 		execve(cmd->path, cmd->cmd_param, env);
 	}
 	ft_free_tab(env);

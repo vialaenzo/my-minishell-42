@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:47 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/22 15:26:03 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/24 13:53:13 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ static void	exec_builtin(int save_stdout, t_data *data, t_cmd *cmd)
 
 bool	builtins_starter(t_data *data, t_cmd *cmd)
 {
-	int	stdout_copy;
-
-	stdout_copy = -1;
+	int (stdout_copy) = -1;
 	if (cmd->outfile >= 0)
 	{
 		stdout_copy = dup(1);

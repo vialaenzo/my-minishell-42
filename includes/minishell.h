@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:29:48 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/23 13:48:29 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/24 14:13:53 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
+# include <dirent.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
@@ -165,7 +166,7 @@ bool				exec(t_data *data);
 bool				builtins_starter(t_data *data, t_cmd *cmd);
 
 // exec/utils.c
-bool				is_builtin(char *cmd);
+bool				is_builtin(char *cmd, char *TYPE);
 void				wait_all(t_data *data);
 
 // exec/childs.c

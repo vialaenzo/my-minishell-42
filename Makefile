@@ -19,7 +19,7 @@ CFLAGS = -Wall -Wextra -Werror
 LIBS = -lreadline
 
 # Commandes
-CC = cc
+CC = cc -g3
 RM = rm -rf
 
 # Rechercher tous les fichiers .c dans le répertoire courant

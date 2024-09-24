@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:46 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 10:31:43 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/24 10:00:59 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	ft_unset(t_data *data, char **args)
 {
 	int (ret) = 0;
 	if (ft_size_tab(args) == 1)
-		return (ft_printf(2, "minishell: %s : not \
-			enough arguments\n", args[0]), 1);
+		return (ft_printf(2, "minishell: %s : not "\
+			"enough arguments\n", args[0]), 1);
 	args++;
 	while (*args)
 	{
