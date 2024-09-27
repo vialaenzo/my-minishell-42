@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:11 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 17:36:00 by dtrala           ###   ########.fr       */
+/*   Updated: 2024/09/26 12:21:21 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static bool	fill_cmd(t_data *data, t_token *tmp)
 {
 	t_cmd *(cmd_ac) = ft_cmd_last(&data->cmd);
+	if (!cmd_ac)
+		return (false);
 	if (!get_infile(data, tmp, cmd_ac) && cmd_ac->infile != -1)
 		return (false);
 	if (cmd_ac->infile == -1)
@@ -29,9 +31,7 @@ static bool	fill_cmd(t_data *data, t_token *tmp)
 	{
 		if (cmd_ac->infile >= 0)
 			close(cmd_ac->infile);
-		cmd_ac->skip_cmd = true;
-		cmd_ac->infile = -1;
-		return (true);
+		return (cmd_ac->skip_cmd = true, cmd_ac->infile = -1, true);
 	}
 	cmd_ac->cmd_param = get_param(data, tmp);
 	if (!cmd_ac->cmd_param)

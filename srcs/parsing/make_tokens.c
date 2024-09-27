@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:13 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/20 12:25:37 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/26 13:36:54 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ static bool	add_cmd(t_token **begin, char **command)
 	if (!str)
 		return (false);
 	clear_cmd(*command, length - (2 * quotes), str, i);
-	if (!ft_token_add_back(begin, ft_token_new(str, 0)))
+	if (!ft_token_add_back(begin, ft_token_new(ft_strdup(str), 0)))
 		return (free(str), false);
+	free(str);
 	t_token *(token) = ft_token_last(begin);
 	if ((token)->prev == NULL || (token)->prev->type == PIPE)
 		(token)->type = CMD;
@@ -110,9 +111,9 @@ static bool	add_special(t_token **begin, char **command)
 	if (!ft_token_add_back(begin, ft_token_new(special_str, spe)))
 		return (free(special_str), false);
 	if (spe == INPUT || spe == TRUNC || spe == PIPE)
-		return (((*command)++), true);
+		return ((*command)++, true);
 	else
-		return (((*command) += 2), true);
+		return ((*command) += 2, true);
 }
 
 bool	make_tokens(t_token **begin, char *line)

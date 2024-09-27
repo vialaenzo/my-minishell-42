@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:04:23 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/24 14:37:56 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/26 12:31:06 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool	read_heredoc(t_data *data, char *limiter)
 	signal(SIGINT, &handle_sigint_child);
 	while (1)
 	{
-		buf = readline("\033[1;93mheredoc>\033[0m ");
+		buf = readline(YELLOW_B "heredoc>" RESET " ");
 		if (!buf)
 		{
 			ft_printf(2, "minishell: warning: here-document at line 1 delimited"
@@ -39,7 +39,7 @@ static bool	read_heredoc(t_data *data, char *limiter)
 			return (free(buf), false);
 		fd = open(".heredoc.tmp", O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd < 0)
-			return (ft_error("Failed to create temp file"), -1);
+			return (free(buf), ft_error("Failed to create temp file"), -1);
 		ft_printf(fd, "%s\n", buf);
 		close(fd);
 		free(buf);

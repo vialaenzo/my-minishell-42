@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:52 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/24 14:22:11 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/26 13:35:16 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,7 @@ static int	count_open_fds(void)
 	return (count);
 }
 
-//static void	run_built(t_data *data, t_cmd *cmd, int *pipe_fds)
-//{
-//	(void)pipe_fds;
-//	close(pipe_fds[0]);
-//	if (cmd->infile >= 0)
-//	{
-//		dup2(cmd->infile, STDIN_FILENO);
-//		close(cmd->infile);
-//	}
-//	if (cmd->outfile >= 0)
-//	{
-//		dup2(cmd->outfile, STDOUT_FILENO);
-//		close(cmd->outfile);
-//	}
-//	else if (cmd->next != NULL)
-//		dup2(pipe_fds[1], STDOUT_FILENO);
-//	close(pipe_fds[1]);
-//	builtins_starter(data, cmd);
-//}
-
-bool exec_bis(t_cmd *cmd, int *pipe_fds)
+bool	exec_bis(t_cmd *cmd, int *pipe_fds)
 {
 	int (fd) = 2;
 	redirect_pipe(cmd, pipe_fds);
@@ -89,10 +69,16 @@ bool exec_bis(t_cmd *cmd, int *pipe_fds)
 	return (true);
 }
 
+void	child_handle_sigint(int i)
+{
+	(void)i;
+	exit(g_signal = 130);
+}
+
 void	child_process(t_data *data, t_cmd *cmd, int *pipe_fds)
 {
 	char **(env) = NULL;
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, &child_handle_sigint);
 	ft_env_to_tab(&data->env, &env);
 	if (!env)
 		free_everything(data, "Alloc Tab_Env Failed", 1);

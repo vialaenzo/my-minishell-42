@@ -6,13 +6,13 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:05 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/24 13:58:15 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/26 13:22:48 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
- static void	handle_parent_process(t_cmd *cmd, int *pipe_fds)
+static void	handle_parent_process(t_cmd *cmd, int *pipe_fds)
 {
 	close(pipe_fds[1]);
 	if (!cmd)
@@ -32,7 +32,6 @@
 		close(pipe_fds[0]);
 }
 
-
 void	sig_abort_handler(int i)
 {
 	(void)i;
@@ -43,7 +42,6 @@ void	sig_abort_handler(int i)
 static bool	exec_env_cmd(t_data *data, t_cmd *cmd, int *pipe_fds)
 {
 	signal(SIGQUIT, &sig_abort_handler);
-	// ft_export_last_cmd(data);
 	pid_t(pid) = fork();
 	if (pid < 0)
 		free_everything(data, "Fork failed", 1);
@@ -56,7 +54,12 @@ static bool	exec_env_cmd(t_data *data, t_cmd *cmd, int *pipe_fds)
 			free_everything(data, NULL, 0);
 	}
 	else
+	{
+		signal(SIGINT, &handle_sigint_exec);
 		handle_parent_process(cmd, pipe_fds);
+		if (cmd == ft_cmd_last(&data->cmd))
+			data->last_pid = pid;
+	}
 	return (true);
 }
 
@@ -81,5 +84,6 @@ bool	exec(t_data *data)
 		tmp = tmp->next;
 	}
 	wait_all(data);
+	signals();
 	return (true);
 }

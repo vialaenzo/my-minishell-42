@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:29:48 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/24 14:13:53 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/25 17:04:33 by dtrala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 # define MINISHELL_H
 
 # include "../libft/includes/libft.h"
+# include <dirent.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
-# include <dirent.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+# define MAGENTA "\033[0;35m"
+# define YELLOW_B "\033[1;93m"
+# define RESET "\033[0m"
 
 typedef enum e_type
 {
@@ -74,6 +78,7 @@ typedef struct s_data
 	t_cmd			*cmd;
 	char			*path;
 	int				exit_code;
+	int				last_pid;
 	int				pipe[2];
 }					t_data;
 
@@ -172,7 +177,6 @@ void				wait_all(t_data *data);
 // exec/childs.c
 void				child_process(t_data *data, t_cmd *cmd, int *pipe_fds);
 int					ft_export_last_arg(t_data *data);
-int					ft_export_last_cmd(t_data *data);
 
 // exec/exec_cmds.c
 bool				is_cmd(t_data *data, t_cmd *cmd);
@@ -181,6 +185,7 @@ bool				is_cmd(t_data *data, t_cmd *cmd);
 char				*cmd_finder(t_data *data, t_cmd *cmd, t_liste *env);
 
 // utils/ft_signals
+void				handle_sigint_exec(int i);
 void				signals(void);
 void				signals_quit(void);
 

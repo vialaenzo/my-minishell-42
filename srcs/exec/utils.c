@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:08 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/24 09:56:55 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/25 13:49:02 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ void	wait_all(t_data *data)
 	{
 		pid = waitpid(0, &status, 0);
 		if (pid != 0)
-		{
-			if (WIFEXITED(status))
+			if (WIFEXITED(status) && pid == data->last_pid)
 				data->exit_code = WEXITSTATUS(status);
-		}
 		if (tmp->outfile >= 0)
 			close(tmp->outfile);
 		if (tmp->infile >= 0)

@@ -1,7 +1,10 @@
 *.a
+*.log
 *.o
 *.sh
+*.supp
+.heredoc.tmp
 .vscode/
 Session.vim
+compile_flags.txt
 minishell
-.heredoc.tmp

@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 13:31:52 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/22 15:00:36 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/24 15:23:40 by dtrala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,6 @@ int	ft_export_last_arg(t_data *data)
 		return (0);
 	t_token *(curr) = ft_token_last(&data->token);
 	value = ft_strjoin("_=", curr->str);
-	if (!value)
-		return (0);
-	ft_export_one(&data->env, &data->export, value);
-	free(value);
-	return (1);
-}
-
-int	ft_export_last_cmd(t_data *data)
-{
-	if (ft_token_has(data->token, PIPE))
-		return (0);
-	char *(value) = NULL;
-	if (!data || !data->cmd || !data->token)
-		return (0);
-	t_cmd *(curr) = ft_cmd_last(&data->cmd);
-	char *(path) = cmd_finder(data, curr, data->env);
-	value = ft_strjoin("_=", path);
-	free(path);
 	if (!value)
 		return (0);
 	ft_export_one(&data->env, &data->export, value);

@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:23 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:28:57 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/25 13:49:45 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ int	is_special(char *str)
 bool	check_is_pipe(t_data *data)
 {
 	t_token *(tmp) = data->token;
+	while (tmp->prev)
+		tmp = tmp->prev;
 	while (tmp)
 	{
 		if ((!tmp->next && tmp->type == PIPE)
-			|| (!tmp->prev && tmp->type == PIPE))
+			|| (!tmp->prev && tmp->type == PIPE) || (tmp->next
+				&& tmp->type == PIPE && tmp->next->type == PIPE))
 		{
 			ft_error("Syntax error unexpected '|' token");
 			ft_token_clear(&data->token);

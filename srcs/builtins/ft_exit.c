@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:25:41 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:25:42 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/25 10:55:29 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_exit(t_data *data, char **args)
 		}
 		if (args[2])
 		{
-			ft_error("minishell: exit: too many arguments");
+			ft_error("exit: too many arguments");
 			data->exit_code = 1;
 			return ;
 		}

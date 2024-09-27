@@ -103,11 +103,10 @@ re: fclean
 test: all
 	#command to generate the log file
 	#valgrind --leak-check=full --track-fds=yes --trace-children=yes -s -q --gen-suppressions=all --log-file=memcheck.log ./minishell
-	valgrind --leak-check=full --track-fds=yes --trace-children=yes -s -q --suppressions=valgrind_ignore.supp ./minishell
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes -s  --suppressions=valgrind_ignore.supp ./minishell
 
-.PHONY: all clean fclean re bonus test
+.PHONY: all clean fclean re test
 
-# ... (le reste du Makefile reste inchangé)
 .SILENT:
 # Colors
 RED := \033[0;31m

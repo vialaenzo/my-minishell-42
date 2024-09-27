@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:24:54 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:24:55 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:58:42 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_get_old_new_pwd(char **old, char **new, t_liste **env)
 	return (1);
 }
 
-static int	ft_cd_to_old(t_data *data, char **args)
+static int	ft_cd_to_old(t_data *data, char **args, bool prompt)
 {
 	char *(old) = NULL;
 	char *(pwd) = NULL;
@@ -53,7 +53,8 @@ static int	ft_cd_to_old(t_data *data, char **args)
 		return (free(old), free(pwd), free(old_entry), free(pwd_entry), 1);
 	if (ft_export_one(&data->env, &data->export, old_entry) != 0)
 		return (free(old), free(pwd), free(old_entry), free(pwd_entry), 1);
-	ft_pwd(args);
+	if (prompt)
+		ft_pwd(args);
 	return (free(old), free(pwd), free(old_entry), free(pwd_entry), 0);
 }
 
@@ -89,15 +90,13 @@ int	ft_cd(t_data *data, char **args)
 	if (ft_size_tab(args) > 2)
 		return (ft_printf(2, "minishell: cd: too many arguments\n", args[1]),
 			1);
-	if (ft_strlen(args[1]) && ft_strnstr(args[1], "--", 2))
-		return (ft_cd_to_old(data, args), ft_cd_home(data, args));
 	if (ft_strlen(args[1]) && args[1][0] == '-' && args[1][1] == '\0')
-		return (ft_cd_to_old(data, args));
+		return (ft_cd_to_old(data, args, true));
 	if (ft_strlen(args[1]) && args[1][0] == '~' && args[1][1] == '\0')
 		return (ft_cd_home(data, args));
 	if (chdir(args[1]) != 0 && args[1])
 		return (ft_printf(2, "minishell: cd: %s: No such file or directory\n",
-				args[1]), 1);
+				args[1]), data->exit_code = 1, 1);
 	if (!ft_get_old_new_pwd(&old_pwd, &new_pwd, &data->env))
 		return (1);
 	if (ft_export_one(&data->env, &data->export, old_pwd) != 0)

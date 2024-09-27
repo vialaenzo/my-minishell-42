@@ -6,7 +6,7 @@
 /*   By: eviala <eviala@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:26:11 by eviala            #+#    #+#             */
-/*   Updated: 2024/09/17 12:26:12 by eviala           ###   ########.fr       */
+/*   Updated: 2024/09/26 13:36:33 by eviala           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	*free_param(char **cmd, int i)
 char	**get_param(t_data *data, t_token *token)
 {
 	int (i) = 0;
-	char **(cmd_param) = malloc(sizeof(char *) * (cnt_args(data, token) + 1));
+	int (args_count) = cnt_args(data, token);
+	char **(cmd_param) = malloc(sizeof(char *) * (args_count + 1));
 	if (cmd_param == NULL)
 		return (NULL);
 	t_token *(tmp) = token;
